@@ -1,5 +1,6 @@
 package com.examplemicroservices.currency_exchange_service.Controller;
 
+import com.examplemicroservices.currency_exchange_service.Configuration.TestVariableConfiguration;
 import com.examplemicroservices.currency_exchange_service.Entity.CurrencyExchange;
 import com.examplemicroservices.currency_exchange_service.Service.CurrencyExchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CurrencyExchangeController {
     @Autowired
     private CurrencyExchangeService service;
 
+    @Autowired
+    private TestVariableConfiguration testVariableConfiguration;
+
     @GetMapping("/from/{from}/to/{to}")
     public CurrencyExchange retrieveExchangeValue(@PathVariable("from") String from, @PathVariable("to") String to) {
         /*return CurrencyExchange.builder().id(100L).from(from).to(to).conversionMultiple(BigDecimal.valueOf(50))
@@ -32,7 +36,7 @@ public class CurrencyExchangeController {
                 if(Objects.isNull(currencyExchange))
                     throw new RuntimeException("Unable to find record with from " + from + " and to " + to);
                 else
-                    return currencyExchange.toBuilder().environment(environment.getProperty("local.server.port")).build();
+                    return currencyExchange.toBuilder().testVar(testVariableConfiguration.getTestVar()).environment(environment.getProperty("local.server.port")).build();
     }
 
     @GetMapping("/all-data")
