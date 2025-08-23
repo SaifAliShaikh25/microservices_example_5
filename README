@@ -1,0 +1,16 @@
+URLs
+
+Eureka - http://localhost:8761/
+
+Currency exchange and conversion urls
+
+http://localhost:8000/currency-exchange/all-data
+http://localhost:8000/currency-exchange/from/USR/to/INR
+http://localhost:8100/currency-conversion/feign/from/USR/to/INR/quantity/10
+
+api gateway
+http://localhost:8765/currency-exchange/from/USR/to/INR
+http://localhost:8765/currency-conversion/feign/from/USR/to/INR/quantity/15
+
+Zipkin container run
+docker container run -p 9411:9411 openzipkin/zipkin:2.23
