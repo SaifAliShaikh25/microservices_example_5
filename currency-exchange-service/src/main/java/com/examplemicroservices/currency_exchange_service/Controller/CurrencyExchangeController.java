@@ -34,7 +34,8 @@ public class CurrencyExchangeController {
                 .environment(environment.getProperty("local.server.port")).build();*/
                 CurrencyExchange currencyExchange =  service.getDataUsingFromAndTo(from, to);
                 if(Objects.isNull(currencyExchange))
-                    throw new RuntimeException("Unable to find record with from " + from + " and to " + to);
+                    throw new RuntimeException("Unable to find record with from " + from + " and to " + to +
+                            " Check URL, It might be USR and not USD");
                 else
                     return currencyExchange.toBuilder().testVar(testVariableConfiguration.getTestVar()).environment(environment.getProperty("local.server.port")).build();
     }

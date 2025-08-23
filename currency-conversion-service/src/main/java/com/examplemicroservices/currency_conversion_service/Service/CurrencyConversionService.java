@@ -1,5 +1,6 @@
 package com.examplemicroservices.currency_conversion_service.Service;
 
+import com.examplemicroservices.currency_conversion_service.Configuration.RestTemplateConfiguration;
 import com.examplemicroservices.currency_conversion_service.Entity.CurrencyConversion;
 import com.examplemicroservices.currency_conversion_service.FeignClient.CurrencyExchangeFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,12 @@ public class CurrencyConversionService {
     @Autowired
     private CurrencyExchangeFeignClient client;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public CurrencyConversion calculateCurrencyConversion(String from, String to, Integer quantity) {
-        ResponseEntity<CurrencyConversion> response = new RestTemplate().getForEntity(
+//        ResponseEntity<CurrencyConversion> response = new RestTemplate().getForEntity(
+        ResponseEntity<CurrencyConversion> response = restTemplate.getForEntity(
                 "http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversion.class,
                 new HashMap<String, String>() {{
                     put("from", from);
