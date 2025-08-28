@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  currency-exchange:
+    image: saifalishaikh/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/currency
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8000"
+    networks:
+      - currency-network
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: currency
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "3307:3306"
+
+
+networks:
+  currency-network:
+
