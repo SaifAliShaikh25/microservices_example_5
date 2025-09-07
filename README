@@ -23,3 +23,8 @@ http://localhost:8081/currency-conversion/feign/from/USR/to/INR/quantity/10
 To run docker image using docker-compose.yaml
 docker-compose up
 
+Command to check stopped containers
+docker ps -a --filter "status=exited"
+
+To delete docker image/container
+docker image/container rm 9c516b80e222
