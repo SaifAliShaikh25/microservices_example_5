@@ -14,3 +14,12 @@ http://localhost:8765/currency-conversion/feign/from/USR/to/INR/quantity/15
 
 Zipkin container run
 docker container run -p 9411:9411 openzipkin/zipkin:2.23
+
+Url after running as Docker container
+
+http://localhost:8080/currency-exchange/from/USR/to/INR
+http://localhost:8081/currency-conversion/feign/from/USR/to/INR/quantity/10
+
+To run docker image using docker-compose.yaml
+docker-compose up
+

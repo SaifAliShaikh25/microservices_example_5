@@ -6,13 +6,47 @@ services:
     mem_limit: 700m
     depends_on:
       - db
+      - naming-server
+    container_name:
+      currency-exchange
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/currency
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
     ports:
       - "8080:8000"
+    networks:
+      - currency-network
+
+  currency-conversion:
+    image: saifalishaikh/mmv2-currency-conversion-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    depends_on:
+      - db
+      - naming-server
+      - currency-exchange
+    container_name:
+      currency-conversion
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/currency
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+    ports:
+      - "8081:8100"
+    networks:
+      - currency-network
+
+  naming-server:
+    image: saifalishaikh/mmv2-naming-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+#    depends_on:
+#      - db
+    ports:
+      - "8761:8761"
     networks:
       - currency-network
   db:
